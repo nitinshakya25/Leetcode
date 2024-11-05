@@ -1,0 +1,74 @@
+For two strings s and t, we say "t divides s" if and only if s = t + t + t + ... + t + t (i.e., t is concatenated with itself one or more times).
+Given two strings str1 and str2, return the largest string x such that x divides both str1 and str2.
+******************************************************************
+Example 1:
+Input: str1 = "ABCABC", str2 = "ABC"
+Output: "ABC"
+Example 2:
+
+Input: str1 = "ABABAB", str2 = "ABAB"
+Output: "AB"
+Example 3:
+
+Input: str1 = "LEET", str2 = "CODE"
+Output: "" 
+******************************************************************
+Constraints:
+1 <= str1.length, str2.length <= 1000
+str1 and str2 consist of English uppercase letters.
+
+
+SOLUTION : 
+class Solution {
+    public static String gcdOfStrings(String str1, String str2) {
+        String matchString = "";
+        String shortString, longString;
+         boolean flag =false;
+        int count=0;
+
+        if(str1.length() < str2.length()) {
+            shortString = str1;
+            longString = str2;
+        }
+        else {
+            shortString = str2;
+            longString = str1;
+        }
+        
+        while(shortString.length() >0 ){
+            flag =false;
+            count = 0;
+            while(longString.length() > 0 ){
+                System.out.println(": " + shortString);
+                System.out.println(": " + longString);
+                if ( longString.length() >= shortString.length() && shortString.equals(longString.substring(0, shortString.length()) )) {
+                    System.out.println("inside " + longString);                    
+                    matchString = shortString;
+                    flag = true;
+                    count = count + shortString.length();
+                    // continue;                    
+                }
+                else
+                {
+                    flag = false;
+                    break;
+                    // return matchString;
+                }
+                if(shortString.length() < longString.length()){
+                    longString = longString.substring(shortString.length());
+                     System.out.println("LNG GOT SHORT " + longString); 
+                }
+                else if (count == str1.length())
+                    return matchString;           
+            }
+            matchString = shortString;
+            shortString = shortString.substring(0, shortString.length()-1);
+            System.out.println(shortString);
+            System.out.println(longString);
+        }
+        if(flag)
+          return matchString;
+        else
+            return "";
+    }
+}
