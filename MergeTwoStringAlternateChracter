@@ -1,0 +1,67 @@
+You are given two strings word1 and word2. Merge the strings by adding letters in alternating order, starting with word1. If a string is longer than the other, append the additional letters onto the end of the merged string.
+
+Return the merged string.
+
+ 
+
+Example 1:
+
+Input: word1 = "abc", word2 = "pqr"
+Output: "apbqcr"
+Explanation: The merged string will be merged as so:
+word1:  a   b   c
+word2:    p   q   r
+merged: a p b q c r
+
+SOLUTION : 
+
+class Solution {
+    public String mergeAlternately(String word1, String word2) {
+        String finalString = "";
+        int pointer = 0;
+        int maxLength;
+        if (word1.length() >= word2.length())
+            maxLength = word1.length();
+        else
+            maxLength = word2.length();
+
+        // if (word1.length() >= 1 && word2.length() <= 100) {
+        // Above implementation is not required as it is assumed that input will come
+        // like this only
+        while (pointer < maxLength) {
+            // Both same
+            if (pointer < word1.length() && pointer < word2.length()) {
+                finalString = finalString + word1.charAt(pointer) + word2.charAt(pointer);
+            }
+            // word1 is bigger
+            else if (word2.length() <= pointer) {
+                finalString = finalString + word1.substring(pointer, word1.length());
+                return finalString;
+            } else if (word1.length() <= pointer)// Word2 is bigger
+            {
+                finalString = finalString + word2.substring(pointer, word2.length());
+                return finalString;
+            }
+            pointer++;
+        }
+        // } else {
+        // return finalString;
+        // }
+        return finalString;
+    }
+}
+/**
+ * public String mergeAlternately(String word1, String word2) {
+ * StringBuilder sb = new StringBuilder();
+ * int size = Math.min(word1.length(), word2.length());
+ * for (int i = 0; i < size; i++) {
+ * sb.append(word1.charAt(i)).append(word2.charAt(i));
+ * }
+ * if (word1.length() > word2.length()) {
+ * sb.append(word1.substring(word2.length()));
+ * } else {
+ * sb.append(word2.substring(word1.length()));
+ * }
+ * return sb.toString();
+ * }
+ */
