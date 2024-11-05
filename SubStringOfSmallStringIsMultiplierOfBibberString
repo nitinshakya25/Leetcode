@@ -20,51 +20,88 @@ str1 and str2 consist of English uppercase letters.
 ******************************************************************
 
 SOLUTION : 
+
 class Solution {
     public static String gcdOfStrings(String str1, String str2) {
         String matchString = "";
-        String shortString, longString;
+        String shortString, longString, maxString, minString;
         boolean flag = false;
         int count = 0;
 
         if (str1.length() < str2.length()) {
             shortString = str1;
-            longString = str2;
+            longString = str2;            
         } else {
             shortString = str2;
-            longString = str1;
+            longString = str1;            
         }
-
+        maxString = longString ;
+        minString = shortString;
+        
         while (shortString.length() > 0) {
             flag = false;
             count = 0;
+            longString = maxString;
             while (longString.length() > 0) {
-                System.out.println(": " + shortString);
-                System.out.println(": " + longString);
+                System.out.println("short first:" + shortString);
+                System.out.println("long first:" + longString);
+                if (shortString.length() == (longString.length()) )
+                {
+                    if (shortString.equals(longString)){
+                        System.out.println("Short before return :" + shortString);
+                        System.out.println("Long before return :"+ longString);
+                        matchString = shortString;
+                        return matchString;
+                        }
+                    else
+                        return "";
+                }
+
                 if (longString.length() >= shortString.length() &&
                         shortString.equals(longString.substring(0, shortString.length()))) {
-                    // System.out.println("inside " + longString);
+                    System.out.println("Line 37 : Inside " + longString);
                     matchString = shortString;
                     flag = true;
                     count = count + shortString.length();
                 } else {
                     flag = false;
-                    break;
+                    // continue;
+                    // break;
                 }
                 if (shortString.length() < longString.length()) {
                     longString = longString.substring(shortString.length());
-                    // System.out.println("LNG GOT SHORT " + longString);
-                } else if (count == str1.length())
-                    return matchString;
-            }
+                    System.out.println("LONG GOT SHORT " + longString);
+                } 
+                // else if (count == str1.length())
+                //     return matchString; 
+
+                
+                if(count + shortString.length() >= longString.length()  &&
+                       ( shortString.length() > longString.length()) && !flag )
+                {
+                    shortString = shortString.substring(0,shortString.length()-1);    
+                    System.out.println("59: SHORT GOT SHORTER " + shortString);
+                    System.out.println("60: Long text " + longString);
+                    longString = maxString;
+                    
+                    continue;
+                    // break;
+                }
+            }      // END OF INNER WHILE
+        }
             matchString = shortString;
             shortString = shortString.substring(0, shortString.length() - 1);
-            // System.out.println(shortString);
-            // System.out.println(longString);
-        }
-        if (flag)
+            System.out.println("short :" + shortString);
+            System.out.println("long :" + longString);
+
+            
+            // else
+            // {
+                
+            // }        
+        if(flag && count == maxString.length())
             return matchString;
-        else
-            return "";
+        else 
+            return"";
     }
 }
