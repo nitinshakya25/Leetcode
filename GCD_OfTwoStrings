@@ -17,57 +17,53 @@ Constraints:
 1 <= str1.length, str2.length <= 1000
 str1 and str2 consist of English uppercase letters.
 
+******************************************************************
 
 SOLUTION : 
 class Solution {
     public static String gcdOfStrings(String str1, String str2) {
         String matchString = "";
         String shortString, longString;
-         boolean flag =false;
-        int count=0;
+        boolean flag = false;
+        int count = 0;
 
-        if(str1.length() < str2.length()) {
+        if (str1.length() < str2.length()) {
             shortString = str1;
             longString = str2;
-        }
-        else {
+        } else {
             shortString = str2;
             longString = str1;
         }
-        
-        while(shortString.length() >0 ){
-            flag =false;
+
+        while (shortString.length() > 0) {
+            flag = false;
             count = 0;
-            while(longString.length() > 0 ){
+            while (longString.length() > 0) {
                 System.out.println(": " + shortString);
                 System.out.println(": " + longString);
-                if ( longString.length() >= shortString.length() && shortString.equals(longString.substring(0, shortString.length()) )) {
-                    System.out.println("inside " + longString);                    
+                if (longString.length() >= shortString.length() &&
+                        shortString.equals(longString.substring(0, shortString.length()))) {
+                    // System.out.println("inside " + longString);
                     matchString = shortString;
                     flag = true;
                     count = count + shortString.length();
-                    // continue;                    
-                }
-                else
-                {
+                } else {
                     flag = false;
                     break;
-                    // return matchString;
                 }
-                if(shortString.length() < longString.length()){
+                if (shortString.length() < longString.length()) {
                     longString = longString.substring(shortString.length());
-                     System.out.println("LNG GOT SHORT " + longString); 
-                }
-                else if (count == str1.length())
-                    return matchString;           
+                    // System.out.println("LNG GOT SHORT " + longString);
+                } else if (count == str1.length())
+                    return matchString;
             }
             matchString = shortString;
-            shortString = shortString.substring(0, shortString.length()-1);
-            System.out.println(shortString);
-            System.out.println(longString);
+            shortString = shortString.substring(0, shortString.length() - 1);
+            // System.out.println(shortString);
+            // System.out.println(longString);
         }
-        if(flag)
-          return matchString;
+        if (flag)
+            return matchString;
         else
             return "";
     }
